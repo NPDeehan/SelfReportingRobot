@@ -13,7 +13,19 @@ Process workload
     
     # do some processing
     Open Browser  http://localhost:8090/#/
-    
+    Sleep       3s
+    Input Username    demo 
+    Input Password    demo
     # create result and return workload to Camunda
     ${my_result}    Create Dictionary    lastname=Deehan
     complete task   ${my_result}
+
+
+*** Keywords ***
+Input Username
+    [Arguments]    ${username}
+    Input Text     username    ${username}
+
+Input Password
+    [Arguments]    ${password}
+    Input Text     password    ${password}
