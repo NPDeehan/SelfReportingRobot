@@ -4,26 +4,26 @@ Library    Collections
 Library    SeleniumLibrary
 
 *** Variables ***
+${OPTIMIZE_HOST}    http://localhost:8090
 ${CAMUNDA_HOST}    http://localhost:8080
-${existing_topic}    Demo
+${optimizeUsername}        demo
+${optimizePassword}        demo
+
 
 *** Test Cases ***
-Process workload
-    ${variables}    fetch workload   topic=${existing_topic}
-    
+Do Optimize Login
     # do some processing
-    Open Browser  http://localhost:8090/#/
+    Open Browser  ${OPTIMIZE_HOST}
     Sleep       3s
-    Input Username    demo 
-    Input Password    demo
+    Input Username    ${optimizeUsername}
+    Input Password    ${optimizePassword}
+
+*** Keywords ***
+
+
 
     Click Login
     # create result and return workload to Camunda
-    ${my_result}    Create Dictionary    lastname=Deehan
-    complete task   ${my_result}
-
-
-*** Keywords ***
 Input Username
     [Arguments]    ${username}
     Input Text     username    ${username}

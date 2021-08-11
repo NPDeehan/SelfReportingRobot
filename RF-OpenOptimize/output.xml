@@ -1,78 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 4.0 (Python 3.9.6 on win32)" generated="20210811 13:14:58.120" rpa="false" schemaversion="2">
+<robot generator="Robot 4.0 (Python 3.9.6 on win32)" generated="20210811 13:23:04.364" rpa="false" schemaversion="2">
 <suite id="s1" name="Open Optimize" source="C:\Users\Niall\OneDrive\Documents\GitHub\SelfReportingRobot\RF-OpenOptimize\open_optimize.robot">
-<test id="s1-t1" name="Process workload">
-<kw name="Fetch Workload" library="CamundaLibrary">
-<var>${variables}</var>
-<arg>topic=${existing_topic}</arg>
-<tag>task</tag>
-<doc>Locks and fetches workloads from camunda on a given topic. Returns a list of variable dictionary.
-Each dictionary representing 1 workload from a process instance.</doc>
-<msg timestamp="20210811 13:14:59.267" level="INFO">[]</msg>
-<msg timestamp="20210811 13:14:59.268" level="INFO">${variables} = {}</msg>
-<status status="PASS" starttime="20210811 13:14:59.235" endtime="20210811 13:14:59.268"/>
-</kw>
+<test id="s1-t1" name="Do Optimize Login">
 <kw name="Open Browser" library="SeleniumLibrary">
-<arg>http://localhost:8090/#/</arg>
+<arg>${OPTIMIZE_HOST}</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<msg timestamp="20210811 13:14:59.270" level="INFO">Opening browser 'firefox' to base url 'http://localhost:8090/#/'.</msg>
-<msg timestamp="20210811 13:14:59.272" level="INFO">Firefox driver log is always forced to to: C:\Users\Niall\OneDrive\Documents\GitHub\SelfReportingRobot\RF-OpenOptimize\geckodriver-3.log</msg>
-<status status="PASS" starttime="20210811 13:14:59.269" endtime="20210811 13:15:07.404"/>
+<msg timestamp="20210811 13:23:04.981" level="INFO">Opening browser 'firefox' to base url 'http://localhost:8090'.</msg>
+<msg timestamp="20210811 13:23:04.983" level="INFO">Firefox driver log is always forced to to: C:\Users\Niall\OneDrive\Documents\GitHub\SelfReportingRobot\RF-OpenOptimize\geckodriver-1.log</msg>
+<status status="PASS" starttime="20210811 13:23:04.981" endtime="20210811 13:23:12.722"/>
 </kw>
 <kw name="Sleep" library="BuiltIn">
 <arg>3s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<msg timestamp="20210811 13:15:10.412" level="INFO">Slept 3 seconds</msg>
-<status status="PASS" starttime="20210811 13:15:07.407" endtime="20210811 13:15:10.412"/>
+<msg timestamp="20210811 13:23:15.731" level="INFO">Slept 3 seconds</msg>
+<status status="PASS" starttime="20210811 13:23:12.722" endtime="20210811 13:23:15.731"/>
 </kw>
 <kw name="Input Username">
-<arg>demo</arg>
+<arg>${optimizeUsername}</arg>
 <kw name="Input Text" library="SeleniumLibrary">
 <arg>username</arg>
 <arg>${username}</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<msg timestamp="20210811 13:15:10.415" level="INFO">Typing text 'demo' into text field 'username'.</msg>
-<status status="PASS" starttime="20210811 13:15:10.414" endtime="20210811 13:15:10.494"/>
+<msg timestamp="20210811 13:23:15.734" level="INFO">Typing text 'demo' into text field 'username'.</msg>
+<status status="PASS" starttime="20210811 13:23:15.733" endtime="20210811 13:23:15.772"/>
 </kw>
-<status status="PASS" starttime="20210811 13:15:10.413" endtime="20210811 13:15:10.494"/>
+<status status="PASS" starttime="20210811 13:23:15.732" endtime="20210811 13:23:15.772"/>
 </kw>
 <kw name="Input Password">
-<arg>demo</arg>
+<arg>${optimizePassword}</arg>
 <kw name="Input Text" library="SeleniumLibrary">
 <arg>password</arg>
 <arg>${password}</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<msg timestamp="20210811 13:15:10.496" level="INFO">Typing text 'demo' into text field 'password'.</msg>
-<status status="PASS" starttime="20210811 13:15:10.495" endtime="20210811 13:15:10.527"/>
+<msg timestamp="20210811 13:23:15.774" level="INFO">Typing text 'demo' into text field 'password'.</msg>
+<status status="PASS" starttime="20210811 13:23:15.774" endtime="20210811 13:23:15.803"/>
 </kw>
-<status status="PASS" starttime="20210811 13:15:10.494" endtime="20210811 13:15:10.528"/>
+<status status="PASS" starttime="20210811 13:23:15.773" endtime="20210811 13:23:15.803"/>
 </kw>
-<kw name="Click Login">
-<kw name="Click Button" library="SeleniumLibrary">
-<arg>Log in</arg>
-<doc>Clicks the button identified by ``locator``.</doc>
-<msg timestamp="20210811 13:15:10.530" level="INFO">Clicking button 'Log in'.</msg>
-<status status="PASS" starttime="20210811 13:15:10.530" endtime="20210811 13:15:10.786"/>
-</kw>
-<status status="PASS" starttime="20210811 13:15:10.529" endtime="20210811 13:15:10.786"/>
-</kw>
-<kw name="Create Dictionary" library="BuiltIn">
-<var>${my_result}</var>
-<arg>lastname=Deehan</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<msg timestamp="20210811 13:15:10.788" level="INFO">${my_result} = {'lastname': 'Deehan'}</msg>
-<status status="PASS" starttime="20210811 13:15:10.787" endtime="20210811 13:15:10.788"/>
-</kw>
-<kw name="Complete task" library="CamundaLibrary">
-<arg>${my_result}</arg>
-<tag>task</tag>
-<doc>Completes the task that was fetched before with `fetch workload`.</doc>
-<msg timestamp="20210811 13:15:10.789" level="WARN">No task to complete. Maybe you did not fetch and lock a workitem before?</msg>
-<status status="PASS" starttime="20210811 13:15:10.789" endtime="20210811 13:15:10.790"/>
-</kw>
-<status status="PASS" starttime="20210811 13:14:59.233" endtime="20210811 13:15:10.790"/>
+<status status="PASS" starttime="20210811 13:23:04.980" endtime="20210811 13:23:15.804"/>
 </test>
-<status status="PASS" starttime="20210811 13:14:58.124" endtime="20210811 13:15:10.792"/>
+<status status="PASS" starttime="20210811 13:23:04.366" endtime="20210811 13:23:15.806"/>
 </suite>
 <statistics>
 <total>
@@ -85,6 +52,5 @@ Each dictionary representing 1 workload from a process instance.</doc>
 </suite>
 </statistics>
 <errors>
-<msg timestamp="20210811 13:15:10.789" level="WARN">No task to complete. Maybe you did not fetch and lock a workitem before?</msg>
 </errors>
 </robot>
