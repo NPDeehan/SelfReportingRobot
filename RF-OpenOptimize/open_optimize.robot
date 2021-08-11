@@ -16,6 +16,8 @@ Process workload
     Sleep       3s
     Input Username    demo 
     Input Password    demo
+
+    Click Login
     # create result and return workload to Camunda
     ${my_result}    Create Dictionary    lastname=Deehan
     complete task   ${my_result}
@@ -29,3 +31,6 @@ Input Username
 Input Password
     [Arguments]    ${password}
     Input Text     password    ${password}
+
+Click Login
+    Click Button    Log in
