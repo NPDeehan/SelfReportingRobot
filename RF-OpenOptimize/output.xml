@@ -1,45 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 4.0 (Python 3.9.6 on win32)" generated="20210811 13:23:04.364" rpa="false" schemaversion="2">
+<robot generator="Robot 4.0 (Python 3.9.6 on win32)" generated="20210811 13:35:54.742" rpa="false" schemaversion="2">
 <suite id="s1" name="Open Optimize" source="C:\Users\Niall\OneDrive\Documents\GitHub\SelfReportingRobot\RF-OpenOptimize\open_optimize.robot">
 <test id="s1-t1" name="Do Optimize Login">
-<kw name="Open Browser" library="SeleniumLibrary">
-<arg>${OPTIMIZE_HOST}</arg>
-<doc>Opens a new browser instance to the optional ``url``.</doc>
-<msg timestamp="20210811 13:23:04.981" level="INFO">Opening browser 'firefox' to base url 'http://localhost:8090'.</msg>
-<msg timestamp="20210811 13:23:04.983" level="INFO">Firefox driver log is always forced to to: C:\Users\Niall\OneDrive\Documents\GitHub\SelfReportingRobot\RF-OpenOptimize\geckodriver-1.log</msg>
-<status status="PASS" starttime="20210811 13:23:04.981" endtime="20210811 13:23:12.722"/>
+<kw name="Fetch Workload" library="CamundaLibrary">
+<var>${variables}</var>
+<arg>topic=${existing_topic}</arg>
+<tag>task</tag>
+<doc>Locks and fetches workloads from camunda on a given topic. Returns a list of variable dictionary.
+Each dictionary representing 1 workload from a process instance.</doc>
+<msg timestamp="20210811 13:35:55.616" level="INFO">[]</msg>
+<msg timestamp="20210811 13:35:55.617" level="INFO">${variables} = {}</msg>
+<status status="PASS" starttime="20210811 13:35:55.595" endtime="20210811 13:35:55.617"/>
 </kw>
-<kw name="Sleep" library="BuiltIn">
-<arg>3s</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<msg timestamp="20210811 13:23:15.731" level="INFO">Slept 3 seconds</msg>
-<status status="PASS" starttime="20210811 13:23:12.722" endtime="20210811 13:23:15.731"/>
+<kw name="Get fetch response" library="CamundaLibrary">
+<var>${recent_task}</var>
+<tag>task</tag>
+<doc>Returns cached response from the last call of `fetch workload`.</doc>
+<msg timestamp="20210811 13:35:55.618" level="INFO">${recent_task} = {}</msg>
+<status status="PASS" starttime="20210811 13:35:55.617" endtime="20210811 13:35:55.618"/>
 </kw>
-<kw name="Input Username">
-<arg>${optimizeUsername}</arg>
-<kw name="Input Text" library="SeleniumLibrary">
-<arg>username</arg>
-<arg>${username}</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<msg timestamp="20210811 13:23:15.734" level="INFO">Typing text 'demo' into text field 'username'.</msg>
-<status status="PASS" starttime="20210811 13:23:15.733" endtime="20210811 13:23:15.772"/>
+<kw name="Log" library="BuiltIn">
+<arg>Recent task:\t${recent_task}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20210811 13:35:55.619" level="INFO">Recent task:	{}</msg>
+<status status="PASS" starttime="20210811 13:35:55.619" endtime="20210811 13:35:55.619"/>
 </kw>
-<status status="PASS" starttime="20210811 13:23:15.732" endtime="20210811 13:23:15.772"/>
+<kw name="Pass Execution If" library="BuiltIn">
+<arg>not ${recent_task}</arg>
+<arg>No workload fetched from Camunda</arg>
+<doc>Conditionally skips rest of the current test, setup, or teardown with PASS status.</doc>
+<msg timestamp="20210811 13:35:55.621" level="INFO">Execution passed with message:
+No workload fetched from Camunda</msg>
+<status status="PASS" starttime="20210811 13:35:55.620" endtime="20210811 13:35:55.621"/>
 </kw>
-<kw name="Input Password">
-<arg>${optimizePassword}</arg>
-<kw name="Input Text" library="SeleniumLibrary">
-<arg>password</arg>
-<arg>${password}</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<msg timestamp="20210811 13:23:15.774" level="INFO">Typing text 'demo' into text field 'password'.</msg>
-<status status="PASS" starttime="20210811 13:23:15.774" endtime="20210811 13:23:15.803"/>
-</kw>
-<status status="PASS" starttime="20210811 13:23:15.773" endtime="20210811 13:23:15.803"/>
-</kw>
-<status status="PASS" starttime="20210811 13:23:04.980" endtime="20210811 13:23:15.804"/>
+<status status="PASS" starttime="20210811 13:35:55.594" endtime="20210811 13:35:55.621">No workload fetched from Camunda</status>
 </test>
-<status status="PASS" starttime="20210811 13:23:04.366" endtime="20210811 13:23:15.806"/>
+<status status="PASS" starttime="20210811 13:35:54.745" endtime="20210811 13:35:55.623"/>
 </suite>
 <statistics>
 <total>
