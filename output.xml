@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.0 (Python 3.9.6 on win32)" generated="20210811 11:53:15.152" rpa="false" schemaversion="2">
+<suite id="s1" name="Open Optimize" source="C:\Users\Niall\OneDrive\Documents\GitHub\SelfReportingRobot\RF-OpenOptimize\open_optimize.robot">
+<test id="s1-t1" name="Process workload">
+<kw name="Fetch Workload" library="CamundaLibrary">
+<var>${variables}</var>
+<arg>topic=${existing_topic}</arg>
+<tag>task</tag>
+<doc>Locks and fetches workloads from camunda on a given topic. Returns a list of variable dictionary.
+Each dictionary representing 1 workload from a process instance.</doc>
+<msg timestamp="20210811 11:53:15.912" level="INFO">[]</msg>
+<msg timestamp="20210811 11:53:15.912" level="INFO">${variables} = {}</msg>
+<status status="PASS" starttime="20210811 11:53:15.883" endtime="20210811 11:53:15.912"/>
+</kw>
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>http://localhost:8090/#/</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20210811 11:53:15.912" level="INFO">Opening browser 'firefox' to base url 'http://localhost:8090/#/'.</msg>
+<msg timestamp="20210811 11:53:15.916" level="INFO">Firefox driver log is always forced to to: C:\Users\Niall\OneDrive\Documents\GitHub\SelfReportingRobot\geckodriver-4.log</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<msg timestamp="20210811 11:53:15.953" level="INFO">Cannot capture screenshot because no browser is open.</msg>
+<status status="PASS" starttime="20210811 11:53:15.953" endtime="20210811 11:53:15.953"/>
+</kw>
+<msg timestamp="20210811 11:53:15.960" level="FAIL">WebDriverException: Message: 'geckodriver' executable needs to be in PATH. 
+</msg>
+<status status="FAIL" starttime="20210811 11:53:15.912" endtime="20210811 11:53:15.960"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${my_result}</var>
+<arg>lastname=Deehan</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="NOT RUN" starttime="20210811 11:53:15.961" endtime="20210811 11:53:15.961"/>
+</kw>
+<kw name="Complete task" library="CamundaLibrary">
+<arg>${my_result}</arg>
+<tag>task</tag>
+<doc>Completes the task that was fetched before with `fetch workload`.</doc>
+<status status="NOT RUN" starttime="20210811 11:53:15.962" endtime="20210811 11:53:15.962"/>
+</kw>
+<status status="FAIL" starttime="20210811 11:53:15.882" endtime="20210811 11:53:15.963">WebDriverException: Message: 'geckodriver' executable needs to be in PATH. 
+</status>
+</test>
+<status status="FAIL" starttime="20210811 11:53:15.154" endtime="20210811 11:53:15.965"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="Open Optimize">Open Optimize</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
