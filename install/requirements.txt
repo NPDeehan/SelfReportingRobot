@@ -3,3 +3,4 @@ robotframework-camunda
 camunda-external-task-client-python3
 robotframework
 robotframework-seleniumlibrary
+robotframework-autorecorder
