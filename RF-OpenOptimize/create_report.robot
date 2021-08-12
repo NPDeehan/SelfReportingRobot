@@ -76,5 +76,5 @@ Enable Sharing
     Click Element   xpath: //span[contains(text(),'sharing')]//preceding-sibling::span
 
 Log Share Link
-    ${shareLink}=   Get Text    xpath: //input[contains(concat(' ',normalize-space(@class),' '),' linkText ')]
+    ${shareLink}=   Get Value    xpath: //input[contains(concat(' ',normalize-space(@class),' '),' linkText ')]
     Log    ${shareLink}     WARN
