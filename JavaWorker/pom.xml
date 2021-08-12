@@ -10,7 +10,7 @@
   <version>1.0-SNAPSHOT</version>
 
   <properties>
-    <camunda.platform.runtime.version>7.15.0-alpha5</camunda.platform.runtime.version>
+    <camunda.platform.runtime.version>7.15.0</camunda.platform.runtime.version>
     <spring.boot.version>2.4.3</spring.boot.version>
     <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
   </properties>

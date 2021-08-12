@@ -47,25 +47,18 @@ public class CheckLoginDetails implements ExternalTaskHandler {
     Boolean loginOK;
 
     Map<String, Object> vars = new HashMap<String, Object>();
-    // we could call an external service to create the loan documents here
 
-//    Resource resource = new ClassPathResource("classpath:robots\\open_optimize.robot");
-//    try {
-//      System.out.println(resource.getURI().toString());
-//    } catch (IOException e) {
-//      e.printStackTrace();
-//    }
     try {
+      String command = "python -m " +
+              "robot " +
+              " --variable optimizeUsername:"+ externalTask.getVariable("username") +
+              " --variable optimizePassword:"+ externalTask.getVariable("password") +
+              " --outputdir .\\target\\Robot\\" +
+              " .\\src\\main\\resources\\robots\\open_optimize.robot";
 
-      Process p = Runtime.getRuntime().exec(
-              "python -m " +
-                      "robot " +
-                      " --variable optimizeUsername:"+ externalTask.getVariable("username") +
-                      " --variable optimizePassword:"+ externalTask.getVariable("password") +
-                      " --outputdir .\\target\\Robot\\" +
-                      " .\\robots\\open_optimize.robot"
-                      //" C:\\Users\\Niall\\OneDrive\\Documents\\GitHub\\SelfReportingRobot\\RF-OpenOptimize\\open_optimize.robot"
-      );
+      System.out.println("Running: " + command);
+
+      Process p = Runtime.getRuntime().exec(command);
       BufferedReader stdInput = new BufferedReader(new
               InputStreamReader(p.getInputStream()));
 
