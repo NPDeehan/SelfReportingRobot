@@ -5,8 +5,5 @@ camunda.bpm.client:
     scoreProvider: # topic name of the External Service Task
       variable-names: [] # our business logic doesn't require any variables, so don't fetch them
       process-definition-key: OptimizeAutomation # only filter for External Tasks with this process definition key
-    loanGranter:
-      variable-names: username, passwprd # only fetch these two variables
-      process-definition-key: OptimizeAutomation
 
 logging.level.org.camunda.bpm.client: DEBUG # increase the log level of the application

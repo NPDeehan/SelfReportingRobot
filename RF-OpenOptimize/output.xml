@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 4.0 (Python 3.9.6 on win32)" generated="20210811 13:35:54.742" rpa="false" schemaversion="2">
+<robot generator="Robot 4.0 (Python 3.9.6 on win32)" generated="20210811 14:06:46.670" rpa="false" schemaversion="2">
 <suite id="s1" name="Open Optimize" source="C:\Users\Niall\OneDrive\Documents\GitHub\SelfReportingRobot\RF-OpenOptimize\open_optimize.robot">
 <test id="s1-t1" name="Do Optimize Login">
 <kw name="Fetch Workload" library="CamundaLibrary">
@@ -8,43 +8,93 @@
 <tag>task</tag>
 <doc>Locks and fetches workloads from camunda on a given topic. Returns a list of variable dictionary.
 Each dictionary representing 1 workload from a process instance.</doc>
-<msg timestamp="20210811 13:35:55.616" level="INFO">[]</msg>
-<msg timestamp="20210811 13:35:55.617" level="INFO">${variables} = {}</msg>
-<status status="PASS" starttime="20210811 13:35:55.595" endtime="20210811 13:35:55.617"/>
+<msg timestamp="20210811 14:06:48.087" level="INFO">[{'activity_id': 'Activity_04wtgje',
+ 'activity_instance_id': 'Activity_04wtgje:ea058ca1-fa97-11eb-9304-40ec99e40f34',
+ 'business_key': 'default',
+ 'error_details': None,
+ 'error_message': None,
+ 'execution_id': 'ea058ca0-fa97-11eb-9304-40ec99e40f34',
+ 'id': 'ea069e12-fa97-11eb-9304-40ec99e40f34',
+ 'lock_expiration_time': datetime.datetime(2021, 8, 11, 14, 7, 48, 27000, tzinfo=tzoffset(None, 7200)),
+ 'priority': 0,
+ 'process_definition_id': 'OptimizeAutomation:1:e687143d-fa97-11eb-9304-40ec99e40f34',
+ 'process_definition_key': 'OptimizeAutomation',
+ 'process_definition_version_tag': None,
+ 'process_instance_id': 'e9fcda0e-fa97-11eb-9304-40ec99e40f34',
+ 'retries': None,
+ 'suspended': False,
+ 'tenant_id': None,
+ 'topic_name': 'check-login',
+ 'variables': {},
+ 'worker_id': 'robotframework-camundalibrary-1628683607.4416614'}]</msg>
+<msg timestamp="20210811 14:06:48.088" level="INFO">${variables} = {}</msg>
+<status status="PASS" starttime="20210811 14:06:47.884" endtime="20210811 14:06:48.088"/>
 </kw>
 <kw name="Get fetch response" library="CamundaLibrary">
 <var>${recent_task}</var>
 <tag>task</tag>
 <doc>Returns cached response from the last call of `fetch workload`.</doc>
-<msg timestamp="20210811 13:35:55.618" level="INFO">${recent_task} = {}</msg>
-<status status="PASS" starttime="20210811 13:35:55.617" endtime="20210811 13:35:55.618"/>
+<msg timestamp="20210811 14:06:48.090" level="INFO">${recent_task} = {'activity_id': 'Activity_04wtgje', 'activity_instance_id': 'Activity_04wtgje:ea058ca1-fa97-11eb-9304-40ec99e40f34', 'error_message': None, 'error_details': None, 'execution_id': 'ea058ca0-fa97-11eb-9...</msg>
+<status status="PASS" starttime="20210811 14:06:48.089" endtime="20210811 14:06:48.090"/>
 </kw>
 <kw name="Log" library="BuiltIn">
 <arg>Recent task:\t${recent_task}</arg>
 <doc>Logs the given message with the given level.</doc>
-<msg timestamp="20210811 13:35:55.619" level="INFO">Recent task:	{}</msg>
-<status status="PASS" starttime="20210811 13:35:55.619" endtime="20210811 13:35:55.619"/>
+<msg timestamp="20210811 14:06:48.092" level="INFO">Recent task:	{'activity_id': 'Activity_04wtgje', 'activity_instance_id': 'Activity_04wtgje:ea058ca1-fa97-11eb-9304-40ec99e40f34', 'error_message': None, 'error_details': None, 'execution_id': 'ea058ca0-fa97-11eb-9304-40ec99e40f34', 'id': 'ea069e12-fa97-11eb-9304-40ec99e40f34', 'lock_expiration_time': datetime.datetime(2021, 8, 11, 14, 7, 48, 27000, tzinfo=tzoffset(None, 7200)), 'process_definition_id': 'OptimizeAutomation:1:e687143d-fa97-11eb-9304-40ec99e40f34', 'process_definition_key': 'OptimizeAutomation', 'process_definition_version_tag': None, 'process_instance_id': 'e9fcda0e-fa97-11eb-9304-40ec99e40f34', 'tenant_id': None, 'retries': None, 'suspended': False, 'worker_id': 'robotframework-camundalibrary-1628683607.4416614', 'priority': 0, 'topic_name': 'check-login', 'business_key': 'default', 'variables': {}}</msg>
+<status status="PASS" starttime="20210811 14:06:48.091" endtime="20210811 14:06:48.092"/>
 </kw>
 <kw name="Pass Execution If" library="BuiltIn">
 <arg>not ${recent_task}</arg>
 <arg>No workload fetched from Camunda</arg>
 <doc>Conditionally skips rest of the current test, setup, or teardown with PASS status.</doc>
-<msg timestamp="20210811 13:35:55.621" level="INFO">Execution passed with message:
-No workload fetched from Camunda</msg>
-<status status="PASS" starttime="20210811 13:35:55.620" endtime="20210811 13:35:55.621"/>
+<msg timestamp="20210811 14:06:48.095" level="FAIL">Evaluating expression 'not {'activity_id': 'Activity_04wtgje', 'activity_instance_id': 'Activity_04wtgje:ea058ca1-fa97-11eb-9304-40ec99e40f34', 'error_message': None, 'error_details': None, 'execution_id': 'ea058ca0-fa97-11eb-9304-40ec99e40f34', 'id': 'ea069e12-fa97-11eb-9304-40ec99e40f34', 'lock_expiration_time': datetime.datetime(2021, 8, 11, 14, 7, 48, 27000, tzinfo=tzoffset(None, 7200)), 'process_definition_id': 'OptimizeAutomation:1:e687143d-fa97-11eb-9304-40ec99e40f34', 'process_definition_key': 'OptimizeAutomation', 'process_definition_version_tag': None, 'process_instance_id': 'e9fcda0e-fa97-11eb-9304-40ec99e40f34', 'tenant_id': None, 'retries': None, 'suspended': False, 'worker_id': 'robotframework-camundalibrary-1628683607.4416614', 'priority': 0, 'topic_name': 'check-login', 'business_key': 'default', 'variables': {}}' failed: NameError: name 'tzoffset' is not defined nor importable as module</msg>
+<status status="FAIL" starttime="20210811 14:06:48.093" endtime="20210811 14:06:48.096"/>
 </kw>
-<status status="PASS" starttime="20210811 13:35:55.594" endtime="20210811 13:35:55.621">No workload fetched from Camunda</status>
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${OPTIMIZE_HOST}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="NOT RUN" starttime="20210811 14:06:48.096" endtime="20210811 14:06:48.097"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>3s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" starttime="20210811 14:06:48.097" endtime="20210811 14:06:48.097"/>
+</kw>
+<kw name="Input Username">
+<arg>${optimizeUsername}</arg>
+<status status="NOT RUN" starttime="20210811 14:06:48.098" endtime="20210811 14:06:48.099"/>
+</kw>
+<kw name="Input Password">
+<arg>${optimizePassword}</arg>
+<status status="NOT RUN" starttime="20210811 14:06:48.099" endtime="20210811 14:06:48.099"/>
+</kw>
+<kw name="Click Login">
+<status status="NOT RUN" starttime="20210811 14:06:48.101" endtime="20210811 14:06:48.101"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${my_result}</var>
+<arg>lastname=Who</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="NOT RUN" starttime="20210811 14:06:48.103" endtime="20210811 14:06:48.103"/>
+</kw>
+<kw name="Complete task" library="CamundaLibrary">
+<arg>${my_result}</arg>
+<tag>task</tag>
+<doc>Completes the task that was fetched before with `fetch workload`.</doc>
+<status status="NOT RUN" starttime="20210811 14:06:48.104" endtime="20210811 14:06:48.104"/>
+</kw>
+<status status="FAIL" starttime="20210811 14:06:47.882" endtime="20210811 14:06:48.105">Evaluating expression 'not {'activity_id': 'Activity_04wtgje', 'activity_instance_id': 'Activity_04wtgje:ea058ca1-fa97-11eb-9304-40ec99e40f34', 'error_message': None, 'error_details': None, 'execution_id': 'ea058ca0-fa97-11eb-9304-40ec99e40f34', 'id': 'ea069e12-fa97-11eb-9304-40ec99e40f34', 'lock_expiration_time': datetime.datetime(2021, 8, 11, 14, 7, 48, 27000, tzinfo=tzoffset(None, 7200)), 'process_definition_id': 'OptimizeAutomation:1:e687143d-fa97-11eb-9304-40ec99e40f34', 'process_definition_key': 'OptimizeAutomation', 'process_definition_version_tag': None, 'process_instance_id': 'e9fcda0e-fa97-11eb-9304-40ec99e40f34', 'tenant_id': None, 'retries': None, 'suspended': False, 'worker_id': 'robotframework-camundalibrary-1628683607.4416614', 'priority': 0, 'topic_name': 'check-login', 'business_key': 'default', 'variables': {}}' failed: NameError: name 'tzoffset' is not defined nor importable as module</status>
 </test>
-<status status="PASS" starttime="20210811 13:35:54.745" endtime="20210811 13:35:55.623"/>
+<status status="FAIL" starttime="20210811 14:06:46.674" endtime="20210811 14:06:48.107"/>
 </suite>
 <statistics>
 <total>
-<stat pass="1" fail="0" skip="0">All Tests</stat>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat pass="1" fail="0" skip="0" id="s1" name="Open Optimize">Open Optimize</stat>
+<stat pass="0" fail="1" skip="0" id="s1" name="Open Optimize">Open Optimize</stat>
 </suite>
 </statistics>
 <errors>

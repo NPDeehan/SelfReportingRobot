@@ -34,8 +34,10 @@ public class CreateReport  implements ExternalTaskHandler {
                             "robot " +
                             " --variable optimizeUsername:"+ externalTask.getVariable("username") +
                             " --variable optimizePassword:"+ externalTask.getVariable("password") +
+                            " --variable processDef:\""+ externalTask.getVariable("processDef") + "\"" +
                             " --outputdir .\\target\\Robot\\" +
-                            " C:\\Users\\Niall\\OneDrive\\Documents\\GitHub\\SelfReportingRobot\\RF-OpenOptimize\\create_report.robot"
+                            " .\\robots\\create_report.robot"
+                            //" C:\\Users\\Niall\\OneDrive\\Documents\\GitHub\\SelfReportingRobot\\RF-OpenOptimize\\create_report.robot"
             );
             BufferedReader stdInput = new BufferedReader(new
                     InputStreamReader(p.getInputStream()));
@@ -60,6 +62,8 @@ public class CreateReport  implements ExternalTaskHandler {
             e.printStackTrace();
         }
 
+
+
         // complete the external task
         if(fullLog.contains("FAIL"))
         {
@@ -67,6 +71,13 @@ public class CreateReport  implements ExternalTaskHandler {
         }else{
             reportCreated = true;
         }
+
+        int linkStart = fullLog.indexOf("OptLink");
+        int linkEnd = fullLog.lastIndexOf("OptLink");
+        String optLink = fullLog.substring(linkStart,linkEnd);
+        optLink = optLink.replace("OptLink","");
+
+        vars.put("OptLink", optLink);
         vars.put("reportCreated", reportCreated);
         externalTaskService.complete(externalTask, vars);
 

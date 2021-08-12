@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0ts4wtc" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.9.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="OptimizeAutomation" name="Optimize Automation" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="username" label="What is your username" type="string" />
+          <camunda:formField id="password" label="What is your password?" type="string" />
+          <camunda:formField id="processDef" label="What is the name of the process you want to report on?" type="string" defaultValue="Optimize Automation" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_0o6m9x4</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0o6m9x4" sourceRef="StartEvent_1" targetRef="Activity_04wtgje" />
+    <bpmn:endEvent id="Event_1qbvzml">
+      <bpmn:incoming>Flow_1hw3xv2</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="Activity_04wtgje" name="Check Optimize Login" camunda:type="external" camunda:topic="check-login">
+      <bpmn:incoming>Flow_0o6m9x4</bpmn:incoming>
+      <bpmn:incoming>Flow_1trzd6q</bpmn:incoming>
+      <bpmn:outgoing>Flow_0qpjlzd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="Activity_128r32k" name="Enter Different">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="username" label="Enter the CORRECT Username - IDIOT! " type="string" />
+          <camunda:formField id="password" label="Are you too stupid to remember your own password?" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0ntdiwl</bpmn:incoming>
+      <bpmn:outgoing>Flow_1trzd6q</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1jce141" sourceRef="Activity_14l31l4" targetRef="Activity_1opcvc6" />
+    <bpmn:serviceTask id="Activity_14l31l4" name="Create Report" camunda:type="external" camunda:topic="Create-Report">
+      <bpmn:incoming>Flow_0qpjlzd</bpmn:incoming>
+      <bpmn:outgoing>Flow_1jce141</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1hw3xv2" sourceRef="Activity_1opcvc6" targetRef="Event_1qbvzml" />
+    <bpmn:userTask id="Activity_1opcvc6" name="Show Report Link">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="OptLink" label="Link to report" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1jce141</bpmn:incoming>
+      <bpmn:outgoing>Flow_1hw3xv2</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0qpjlzd" sourceRef="Activity_04wtgje" targetRef="Activity_14l31l4" />
+    <bpmn:boundaryEvent id="Event_116ca91" name="Failed to login" attachedToRef="Activity_04wtgje">
+      <bpmn:outgoing>Flow_0ntdiwl</bpmn:outgoing>
+      <bpmn:errorEventDefinition id="ErrorEventDefinition_0l7z2es" errorRef="Error_0qgpmc7" />
+    </bpmn:boundaryEvent>
+    <bpmn:sequenceFlow id="Flow_0ntdiwl" sourceRef="Event_116ca91" targetRef="Activity_128r32k" />
+    <bpmn:sequenceFlow id="Flow_1trzd6q" sourceRef="Activity_128r32k" targetRef="Activity_04wtgje" />
+  </bpmn:process>
+  <bpmn:error id="Error_0qgpmc7" name="LoginFailed" errorCode="LoginFailed" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="OptimizeAutomation">
+      <bpmndi:BPMNEdge id="Flow_0o6m9x4_di" bpmnElement="Flow_0o6m9x4">
+        <di:waypoint x="215" y="277" />
+        <di:waypoint x="270" y="277" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1jce141_di" bpmnElement="Flow_1jce141">
+        <di:waypoint x="640" y="277" />
+        <di:waypoint x="710" y="277" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1hw3xv2_di" bpmnElement="Flow_1hw3xv2">
+        <di:waypoint x="810" y="277" />
+        <di:waypoint x="872" y="277" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0qpjlzd_di" bpmnElement="Flow_0qpjlzd">
+        <di:waypoint x="370" y="277" />
+        <di:waypoint x="540" y="277" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ntdiwl_di" bpmnElement="Flow_0ntdiwl">
+        <di:waypoint x="350" y="219" />
+        <di:waypoint x="350" y="160" />
+        <di:waypoint x="440" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1trzd6q_di" bpmnElement="Flow_1trzd6q">
+        <di:waypoint x="540" y="160" />
+        <di:waypoint x="570" y="160" />
+        <di:waypoint x="570" y="80" />
+        <di:waypoint x="290" y="80" />
+        <di:waypoint x="290" y="237" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="259" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1yzqf5z_di" bpmnElement="Activity_04wtgje">
+        <dc:Bounds x="270" y="237" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0p7yi3m_di" bpmnElement="Activity_14l31l4">
+        <dc:Bounds x="540" y="237" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1qbvzml_di" bpmnElement="Event_1qbvzml">
+        <dc:Bounds x="872" y="259" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1eyzdwz_di" bpmnElement="Activity_1opcvc6">
+        <dc:Bounds x="710" y="237" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0yes6en_di" bpmnElement="Activity_128r32k">
+        <dc:Bounds x="440" y="120" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_17ffjwf_di" bpmnElement="Event_116ca91">
+        <dc:Bounds x="332" y="219" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="355" y="203" width="69" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

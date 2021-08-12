@@ -21,6 +21,8 @@ import org.camunda.bpm.client.task.ExternalTask;
 import org.camunda.bpm.client.task.ExternalTaskHandler;
 import org.camunda.bpm.client.task.ExternalTaskService;
 import org.camunda.bpm.engine.variable.Variables;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
@@ -46,6 +48,13 @@ public class CheckLoginDetails implements ExternalTaskHandler {
 
     Map<String, Object> vars = new HashMap<String, Object>();
     // we could call an external service to create the loan documents here
+
+//    Resource resource = new ClassPathResource("classpath:robots\\open_optimize.robot");
+//    try {
+//      System.out.println(resource.getURI().toString());
+//    } catch (IOException e) {
+//      e.printStackTrace();
+//    }
     try {
 
       Process p = Runtime.getRuntime().exec(
@@ -54,7 +63,8 @@ public class CheckLoginDetails implements ExternalTaskHandler {
                       " --variable optimizeUsername:"+ externalTask.getVariable("username") +
                       " --variable optimizePassword:"+ externalTask.getVariable("password") +
                       " --outputdir .\\target\\Robot\\" +
-                      " C:\\Users\\Niall\\OneDrive\\Documents\\GitHub\\SelfReportingRobot\\RF-OpenOptimize\\open_optimize.robot"
+                      " .\\robots\\open_optimize.robot"
+                      //" C:\\Users\\Niall\\OneDrive\\Documents\\GitHub\\SelfReportingRobot\\RF-OpenOptimize\\open_optimize.robot"
       );
       BufferedReader stdInput = new BufferedReader(new
               InputStreamReader(p.getInputStream()));
