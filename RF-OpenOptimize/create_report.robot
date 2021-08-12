@@ -10,9 +10,10 @@ ${optimizeUsername}        demo
 ${optimizePassword}        demo
 ${creatNewReport}        http://localhost:8090/#/report/new/edit
 ${processDef}        Review Invoice
+${reportName}        PondReport
 ${view}        rawData
-${groupBy}        Review Invoice
-${distributedBy}        Review Invoice
+${groupBy}        TODO
+${distributedBy}        TODO
 
 
 *** Test Cases ***
@@ -26,10 +27,16 @@ Do Optimize Login
 Create Report
     Sleep       1s
     Create New Report
-    Name Report     PondReport
+    Name Report     ${reportName}
+    Sleep       1s
     Select Definition   ${processDef}
+    Sleep       1s
     Select View   ${view}
     Save Report
+
+Log Share Link
+    Enable Sharing
+    Log Share Link
 
 *** Keywords ***
 Input Username
@@ -63,3 +70,11 @@ Select View
     [Arguments]    ${viewName}
     Click Element    xpath: //div[@class="controlSections"]//span[contains(text(),'View')]//following-sibling::div
     Click Element    xpath: //div[@class="controlSections"]//span[contains(text(),'View')]//following-sibling::div//div[@value='${viewName}']
+
+Enable Sharing
+    Click Button    Share
+    Click Element   xpath: //span[contains(text(),'sharing')]//preceding-sibling::span
+
+Log Share Link
+    ${shareLink}=   Get Text    xpath: //input[contains(concat(' ',normalize-space(@class),' '),' linkText ')]
+    Log    ${shareLink}     WARN
