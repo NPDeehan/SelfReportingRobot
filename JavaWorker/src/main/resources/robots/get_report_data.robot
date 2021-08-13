@@ -2,6 +2,8 @@
 Library    Collections
 Library    SeleniumLibrary
 
+# http://localhost:8090/external/#/share/report/5794f92c-160a-443c-a3bf-68768c5e9b71
+# python -m robot  --variable reportURL:http://localhost:8090/external/#/share/report/5794f92c-160a-443c-a3bf-68768c5e9b71 --variable optimizePassword:demo --outputdir .\robotLogs get_report_data.robot
 *** Variables ***
 ${OPTIMIZE_HOST}    http://localhost:8090
 ${reportURL}    http://localhost:8090/external/#/share/report/0c8ddc87-021c-4fa2-8024-d0bf6c80ff35

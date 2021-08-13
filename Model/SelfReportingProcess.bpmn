@@ -1,19 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0ts4wtc" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.9.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0ts4wtc" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.9.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
   <bpmn:process id="OptimizeAutomation" name="Optimize Automation" isExecutable="true">
-    <bpmn:startEvent id="StartEvent_1" camunda:initiator="camundaUser">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="username" label="What is your username" type="string" />
-          <camunda:formField id="password" label="What is your password?" type="string" />
-          <camunda:formField id="processDef" label="What is the name of the process you want to report on?" type="string" defaultValue="Optimize Automation" />
-        </camunda:formData>
-      </bpmn:extensionElements>
-      <bpmn:outgoing>Flow_0o6m9x4</bpmn:outgoing>
-    </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_0o6m9x4" sourceRef="StartEvent_1" targetRef="Activity_04wtgje" />
     <bpmn:endEvent id="Event_1qbvzml">
-      <bpmn:incoming>Flow_1kyadfl</bpmn:incoming>
+      <bpmn:incoming>Flow_1th7wla</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:serviceTask id="Activity_04wtgje" name="Check Optimize Login" camunda:type="external" camunda:topic="check-login">
       <bpmn:incoming>Flow_0o6m9x4</bpmn:incoming>
@@ -30,20 +20,11 @@
       <bpmn:incoming>Flow_0ntdiwl</bpmn:incoming>
       <bpmn:outgoing>Flow_1trzd6q</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:sequenceFlow id="Flow_1jce141" sourceRef="Activity_14l31l4" targetRef="Activity_1opcvc6" />
+    <bpmn:sequenceFlow id="Flow_1jce141" sourceRef="Activity_14l31l4" targetRef="Activity_15dtrw3" />
     <bpmn:serviceTask id="Activity_14l31l4" name="Create Report" camunda:type="external" camunda:topic="Create-Report">
       <bpmn:incoming>Flow_0qpjlzd</bpmn:incoming>
       <bpmn:outgoing>Flow_1jce141</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Activity_1opcvc6" name="Show Report Link" camunda:assignee="#{camundaUser}">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="OptLink" label="Link to report" type="string" />
-        </camunda:formData>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_1jce141</bpmn:incoming>
-      <bpmn:outgoing>Flow_1kyadfl</bpmn:outgoing>
-    </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_0qpjlzd" sourceRef="Activity_04wtgje" targetRef="Activity_14l31l4" />
     <bpmn:boundaryEvent id="Event_116ca91" name="Failed to login" attachedToRef="Activity_04wtgje">
       <bpmn:outgoing>Flow_0ntdiwl</bpmn:outgoing>
@@ -51,9 +32,39 @@
     </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="Flow_0ntdiwl" sourceRef="Event_116ca91" targetRef="Activity_128r32k" />
     <bpmn:sequenceFlow id="Flow_1trzd6q" sourceRef="Activity_128r32k" targetRef="Activity_04wtgje" />
-    <bpmn:sequenceFlow id="Flow_1kyadfl" sourceRef="Activity_1opcvc6" targetRef="Event_1qbvzml" />
+    <bpmn:sequenceFlow id="Flow_1hk44kj" sourceRef="Activity_15dtrw3" targetRef="Gateway_09jxy2x" />
+    <bpmn:serviceTask id="Activity_15dtrw3" name="Get Report Data" camunda:type="external" camunda:topic="Get-Report-Data">
+      <bpmn:incoming>Flow_1jce141</bpmn:incoming>
+      <bpmn:outgoing>Flow_1hk44kj</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_09jxy2x" name="Enough progress made?" default="Flow_1th7wla">
+      <bpmn:incoming>Flow_1hk44kj</bpmn:incoming>
+      <bpmn:outgoing>Flow_1th7wla</bpmn:outgoing>
+      <bpmn:outgoing>Flow_175w31k</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1th7wla" name="Yes" sourceRef="Gateway_09jxy2x" targetRef="Event_1qbvzml" />
+    <bpmn:sequenceFlow id="Flow_175w31k" name="No" sourceRef="Gateway_09jxy2x" targetRef="Event_18liia5">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{numberOfInstances &lt; requiredInstanceCount}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="Event_18liia5" name="Start a new process">
+      <bpmn:incoming>Flow_175w31k</bpmn:incoming>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1a45dme" camunda:type="external" camunda:topic="Start-Instance-Message" />
+    </bpmn:endEvent>
+    <bpmn:startEvent id="StartEvent_1" camunda:initiator="camundaUser">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="username" label="What is your username" type="string" />
+          <camunda:formField id="password" label="What is your password?" type="string" />
+          <camunda:formField id="processDef" label="What is the name of the process you want to report on?" type="string" defaultValue="Optimize Automation" />
+          <camunda:formField id="requiredInstanceCount" label="How many instances do you want?" type="long" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_0o6m9x4</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_05irjou" messageRef="Message_072n4l5" />
+    </bpmn:startEvent>
   </bpmn:process>
   <bpmn:error id="Error_0qgpmc7" name="LoginFailed" errorCode="LoginFailed" />
+  <bpmn:message id="Message_072n4l5" name="AutomateOptimize" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="OptimizeAutomation">
       <bpmndi:BPMNEdge id="Flow_1trzd6q_di" bpmnElement="Flow_1trzd6q">
@@ -74,19 +85,31 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1jce141_di" bpmnElement="Flow_1jce141">
         <di:waypoint x="540" y="277" />
-        <di:waypoint x="590" y="277" />
+        <di:waypoint x="640" y="277" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0o6m9x4_di" bpmnElement="Flow_0o6m9x4">
         <di:waypoint x="215" y="277" />
         <di:waypoint x="270" y="277" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1kyadfl_di" bpmnElement="Flow_1kyadfl">
-        <di:waypoint x="690" y="277" />
-        <di:waypoint x="872" y="277" />
+      <bpmndi:BPMNEdge id="Flow_1hk44kj_di" bpmnElement="Flow_1hk44kj">
+        <di:waypoint x="740" y="277" />
+        <di:waypoint x="805" y="277" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
-        <dc:Bounds x="179" y="259" width="36" height="36" />
-      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1th7wla_di" bpmnElement="Flow_1th7wla">
+        <di:waypoint x="855" y="277" />
+        <di:waypoint x="952" y="277" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="895" y="259" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_175w31k_di" bpmnElement="Flow_175w31k">
+        <di:waypoint x="830" y="252" />
+        <di:waypoint x="830" y="160" />
+        <di:waypoint x="942" y="160" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="838" y="203" width="15" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Activity_1yzqf5z_di" bpmnElement="Activity_04wtgje">
         <dc:Bounds x="270" y="237" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -96,11 +119,26 @@
       <bpmndi:BPMNShape id="Activity_0p7yi3m_di" bpmnElement="Activity_14l31l4">
         <dc:Bounds x="440" y="237" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1eyzdwz_di" bpmnElement="Activity_1opcvc6">
-        <dc:Bounds x="590" y="237" width="100" height="80" />
+      <bpmndi:BPMNShape id="Activity_1bbtg7x_di" bpmnElement="Activity_15dtrw3">
+        <dc:Bounds x="640" y="237" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1qbvzml_di" bpmnElement="Event_1qbvzml">
-        <dc:Bounds x="872" y="259" width="36" height="36" />
+        <dc:Bounds x="952" y="259" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_09jxy2x_di" bpmnElement="Gateway_09jxy2x" isMarkerVisible="true">
+        <dc:Bounds x="805" y="252" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="788" y="309" width="84" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0acikxv_di" bpmnElement="Event_18liia5">
+        <dc:Bounds x="942" y="142" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="932" y="185" width="57" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_06hvw0w_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="259" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_17ffjwf_di" bpmnElement="Event_116ca91">
         <dc:Bounds x="332" y="219" width="36" height="36" />
