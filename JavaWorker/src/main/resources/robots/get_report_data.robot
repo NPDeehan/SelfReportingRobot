@@ -4,7 +4,9 @@ Library    SeleniumLibrary
 
 *** Variables ***
 ${OPTIMIZE_HOST}    http://localhost:8090
-${reportURL}    http://localhost:8090/#/report/new/edit
+${reportURL}    http://localhost:8090/external/#/share/report/0c8ddc87-021c-4fa2-8024-d0bf6c80ff35
+${optimizeUsername}        demo
+${optimizePassword}        demo
 
 *** Test Cases ***
 Open Report
@@ -12,16 +14,18 @@ Open Report
     Sleep       1s
 
 Go To Optimize
-    Click Button    css=html.js-focus-visible body div#root div.Root-container div.Sharing.report div.header div.title-container a.Button.title-button.main
+    Click Element    xpath: //span[contains(text(),'Open')]
     Sleep   1s
-    Click Element   Edit
-    Click Element    Flow Nodes
+    Switch Window   NEW
+
+Do Optimize Login
+    Sleep   2s
+    Input Username    ${optimizeUsername}
+    Input Password    ${optimizePassword}
+    Click Login
 
 #Close The Browser
     #Close Browser
-
-
-
 
 *** Keywords ***
 Input Username
