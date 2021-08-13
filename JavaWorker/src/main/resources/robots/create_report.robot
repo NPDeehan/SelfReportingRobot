@@ -11,7 +11,7 @@ ${optimizePassword}        demo
 ${creatNewReport}        http://localhost:8090/#/report/new/edit
 ${processDef}        Review Invoice
 ${reportName}        PondReport
-${view}        fn_count
+${view}        pi_count
 ${groupBy}        TODO
 ${distributedBy}        TODO
 

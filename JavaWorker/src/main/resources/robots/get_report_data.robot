@@ -24,8 +24,12 @@ Do Optimize Login
     Input Password    ${optimizePassword}
     Click Login
 
-#Close The Browser
-    #Close Browser
+Log Number Report Result
+    Sleep   2s
+    Log Report Result
+
+Close The Browser
+    Close Browser
 
 *** Keywords ***
 Input Username
@@ -38,3 +42,7 @@ Input Password
 
 Click Login
     Click Button    Log in
+
+Log Report Result
+    ${result}=   Get Text    xpath: //div[@class='data']
+    Log To Console    OptResult${result}OptResult
