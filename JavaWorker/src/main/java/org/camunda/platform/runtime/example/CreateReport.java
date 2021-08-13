@@ -68,6 +68,8 @@ public class CreateReport  implements ExternalTaskHandler {
         if(fullLog.contains("FAIL"))
         {
             vars.put("reportCreated", false);
+            externalTaskService.handleFailure(externalTask, "Failed to Create Report", "Baadddd things happened", 0, 0);
+
         }else if (fullLog.contains("PASS")){
             reportCreated = true;
             int linkStart = fullLog.indexOf("OptLink");
@@ -78,7 +80,7 @@ public class CreateReport  implements ExternalTaskHandler {
             vars.put("OptLink", optLink);
             vars.put("reportCreated", reportCreated);
         }else {
-            externalTaskService.handleFailure(externalTask, "Problem", "We dont know how to fix it", 0, 0);
+            externalTaskService.handleFailure(externalTask, "Problem", "I dont know how to fix it... ", 0, 0);
         }
         externalTaskService.complete(externalTask, vars);
 
